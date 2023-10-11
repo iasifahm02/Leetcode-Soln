@@ -1,49 +1,28 @@
 class Solution {
-private:
-    int findPivot(vector<int> nums){
-        int ans = 0;
-        for(int i = 0; i < nums.size()-1; i++){
-            if(nums[i] > nums[i+1]){
-                ans = i+1;
-            }
-        }
-        return ans;
-    }
-
-    bool binarySearch(vector<int> nums, int start, int end, int target){
-    
-        int mid = start+(end-start)/2;
-
-        while(start <= end){
-            
-            if(nums[mid] == target){
-                return true;
-            }
-
-            if(nums[mid] < target){
-                start = mid+1;
-            }
-            else{
-                end = mid-1;
-            }
-
-            mid = start+(end-start)/2;
-        }
-
-        return false;
-    }
 public:
     bool search(vector<int>& nums, int target) {
-        int pivot = findPivot(nums);
-        int n = nums.size();
+        int low = 0;
+        int high = nums.size()-1;
 
-        cout << "Pivot is at index : " << pivot << endl;
+        while(low <= high){
+            int mid = low + (high-low)/2;
 
-        if(nums[pivot] <= target && target <= nums[n-1]){ //line 2 pr search krlo
-            return binarySearch(nums, pivot, n-1, target);
+            if(nums[mid] == target) return true;
+
+            if(nums[low] == nums[mid] && nums[mid] == nums[high]){ // Game changing condn
+                low++, high--;
+                continue;
+            }
+
+            if(nums[low] <= nums[mid]){ //left part is sorted
+                if(nums[low] <= target && target <= nums[mid]) high = mid-1;
+                else low = mid+1;
+            }
+            else{//right part is sorted
+                if(nums[mid] <= target && target <= nums[high]) low = mid+1;
+                else high = mid-1;
+            }
         }
-        else{ //line 1 pr search krlo
-            return binarySearch(nums, 0, pivot-1, target);
-        }
+        return false;
     }
 };
