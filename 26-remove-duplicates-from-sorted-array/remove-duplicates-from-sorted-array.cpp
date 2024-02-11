@@ -1,16 +1,25 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        set<int> st;
-        for(int i = 0; i < nums.size(); i++){
-            st.insert(nums[i]);
-        }
+        // Approach 1 - nlogn, n
+        // set<int> st;
+        // for(int i = 0; i < nums.size(); i++){
+        //     st.insert(nums[i]);
+        // }
+        // int index = 0;
+        // for(auto it: st){
+        //     nums[index++] = it;
+        // }
+        // return index+1;
 
-        int index = 0;
-        for(auto it: st){
-            nums[index++] = it;
+        //Approach 2 - two pointers 
+        int i = 0;
+        for(int j = 1; j < nums.size(); j++){
+            if(nums[j] != nums[i]){
+                nums[i+1] = nums[j];
+                i++;
+            }
         }
-
-        return index;
+        return i+1;
     }
 };
