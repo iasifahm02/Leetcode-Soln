@@ -9,35 +9,22 @@
  * };
  */
 class Solution {
-private:
-    void reverse(ListNode* &head, ListNode* &curr, ListNode* &prev){
-        //Base Case
-        if(curr == NULL){
-            head = prev;
-            return;
-        }
-
-        //recursion call
-        reverse(head, curr->next, curr);
-        curr->next = prev;
-    }
 public:
     ListNode* reverseList(ListNode* head) {
-        // ListNode* curr = head;
-        // ListNode* prev = NULL;
-        // reverse(head, curr, prev);
-        // return head;
+        //Approach 1 - Iterative Approach
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* forward = NULL;
 
-        //Recursive approach 2 / Base case
-        if(head == NULL || head->next == NULL){ //single node or empty already reversed
-            return head;
+        while(curr != NULL){
+            forward = curr->next;
+            curr->next = prev;
+            //Set pointers at correct position
+            prev = curr;
+            curr = forward;
         }
 
-        //Recursive call > aage ki list reverse krlo
-        ListNode* forward = head->next;
-        ListNode* miniHead = reverseList(forward);
-        forward -> next = head;;
-        head->next = NULL;
-        return miniHead;;
+        return prev;
+
     }
 };
