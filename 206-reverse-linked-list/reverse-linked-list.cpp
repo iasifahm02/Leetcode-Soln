@@ -9,22 +9,23 @@
  * };
  */
 class Solution {
-public:
-    ListNode* reverseList(ListNode* head) {
-        //Approach 1 - Iterative Approach
-        ListNode* curr = head;
-        ListNode* prev = NULL;
-        ListNode* forward = NULL;
-
-        while(curr != NULL){
-            forward = curr->next;
-            curr->next = prev;
-            //Set pointers at correct position
-            prev = curr;
-            curr = forward;
+private:
+    ListNode* reverse(ListNode* &head, ListNode* curr, ListNode* prev){
+        //Base case
+        if(curr == NULL){
+            return prev;
         }
 
-        return prev;
-
+        ListNode* forward = curr->next;
+        curr->next = prev;
+        return reverse(head, forward, curr);
+    }
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        
+        head = reverse(head, curr, prev);
+        return head;
     }
 };
