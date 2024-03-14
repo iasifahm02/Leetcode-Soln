@@ -27,11 +27,6 @@ public:
         ListNode* prev = NULL;
 
         int position = length(head) - n;
-        if(position == 0){
-            head = head->next;
-            curr->next = NULL;
-            return head;
-        }
         int cnt = 1;
         while(cnt <= position){
             prev = curr;
@@ -39,6 +34,9 @@ public:
             cnt++;
         }
 
+        if(position == 0){ //Case 1 -> [1, 2], n = 2
+            head = head->next;
+        }
         if(curr != NULL && prev != NULL){
             prev->next = curr->next;
         }
