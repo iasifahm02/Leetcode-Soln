@@ -17,7 +17,8 @@ public:
             fast = fast->next;
             if(fast != NULL){
                 fast = fast->next;
-            }else return false;
+            }
+            else return false;
 
             if(fast == slow) return true;
         }
