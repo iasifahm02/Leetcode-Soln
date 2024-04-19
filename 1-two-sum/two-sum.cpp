@@ -1,20 +1,15 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        map<int, int> mpp; 
-        for(int i = 0; i < nums.size(); i++){ //store (element, index)
-            mpp[nums[i]] = i;
-        }
-
-        vector<int> ans;
+        map<int, int> mpp;
         for(int i = 0; i < nums.size(); i++){
-            int ele = target - nums[i];
-            if(mpp[ele] && mpp[ele] != i){
-                ans.push_back(i);
-                ans.push_back(mpp[ele]);
-                break;
+            int number = nums[i]; //2
+            int anotherNum = target - nums[i]; //9-2 = 7
+            if(mpp.find(anotherNum) != mpp.end()){
+                return {i, mpp[anotherNum]};
             }
+            mpp[number] = i; //save num with index
         }
-        return ans;
+        return {-1, -1}; //not exist
     }
 };
