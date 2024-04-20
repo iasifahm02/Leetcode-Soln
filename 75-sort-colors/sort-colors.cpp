@@ -1,15 +1,30 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int n = nums.size();
-        for(int i = 0; i <= n-2; i++){
-            int mini = i;
-            for(int j = i+1; j <= n-1; j++){
-                if(nums[j] < nums[mini]){
-                    mini = j;
-                }
+        //Brute force - Sort the array
+        
+        //Better Approach - Store count & overwrite
+        int count0 = 0, count1 = 0, count2 = 0;
+
+        for(int i = 0; i < nums.size(); i++){ //Store count
+            if(nums[i] == 0) count0++;
+            else if(nums[i] == 1) count1++;
+            else count2++;
+        }
+
+        for(int i = 0; i < nums.size(); i++){
+            if(count0 != 0){
+                nums[i] = 0;
+                count0--;
             }
-            swap(nums[i], nums[mini]);
+            else if(count1 != 0){
+                nums[i] = 1;
+                count1--;
+            }
+            else{
+                nums[i] = 2;
+                count2--;
+            }
         }
     }
 };
