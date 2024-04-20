@@ -2,28 +2,18 @@ class Solution {
 public:
     void sortColors(vector<int>& nums) {
         //Brute force - Sort the array
-        
         //Better Approach - Store count & overwrite
-        int count0 = 0, count1 = 0, count2 = 0;
-
-        for(int i = 0; i < nums.size(); i++){ //Store count
-            if(nums[i] == 0) count0++;
-            else if(nums[i] == 1) count1++;
-            else count2++;
-        }
-
-        for(int i = 0; i < nums.size(); i++){
-            if(count0 != 0){
-                nums[i] = 0;
-                count0--;
+        //Optimal Approach - Dutch National flag Algo
+        int low = 0, mid = 0, high = nums.size()-1;
+        while(mid <= high){
+            if(nums[mid] == 0){
+                swap(nums[low], nums[mid]);
+                low++, mid++;
             }
-            else if(count1 != 0){
-                nums[i] = 1;
-                count1--;
-            }
-            else{
-                nums[i] = 2;
-                count2--;
+            else if(nums[mid] == 1) mid++;
+            else{ // If nums[mid] = 2
+                swap(nums[mid], nums[high]);
+                high--;
             }
         }
     }
