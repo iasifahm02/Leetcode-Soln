@@ -15,7 +15,6 @@ private:
         if(curr == NULL){
             return prev;
         }
-
         ListNode* forward = curr->next;
         curr->next = prev;
         return reverse(head, forward, curr);
